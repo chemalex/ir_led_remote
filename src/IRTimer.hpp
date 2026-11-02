@@ -811,7 +811,7 @@ void enableIRTimerInterrupt(void) {
 /*
  * If both irmp and irsnd are used, compile it only once in the second step, when all variables are declared.
  */
-#if (! defined(USE_ONE_TIMER_FOR_IRMP_AND_IRSND) || ( defined(_IRMP_ARDUINO_EXT_H) && defined(_IRSND_ARDUINO_EXT_H) )) && ! defined(ISR_DEFINED)
+#if (! defined(USE_ONE_TIMER_FOR_IRMP_AND_IRSND) || ! defined(ARDUINO) || ( defined(_IRMP_ARDUINO_EXT_H) && defined(_IRSND_ARDUINO_EXT_H) )) && ! defined(ISR_DEFINED)
 #  if !defined(ISR_DEFINED)
 #define ISR_DEFINED
 #  endif
@@ -918,6 +918,8 @@ void irmp_timer_ISR(void)
      * Send part of ISR
      */
     if(irsnd_busy) {
+/* Bare-metal AVR IRSND switches its hardware OC output in irsnd_on/off(). */
+#if defined(ARDUINO) || defined(IRSND_GENERATE_NO_SEND_RF)
         if (irsnd_is_on)
         {
 #  if defined(IRSND_GENERATE_NO_SEND_RF)
@@ -937,6 +939,7 @@ void irmp_timer_ISR(void)
             // irsnd off here
             if (__builtin_constant_p(IRSND_OUTPUT_PIN) ) { digitalWriteFast(IRSND_OUTPUT_PIN, IR_OUTPUT_INACTIVE_LEVEL);} else { digitalWrite(IRSND_OUTPUT_PIN, IR_OUTPUT_INACTIVE_LEVEL);}
         }
+#endif
 
         /*
          * Call irsnd_ISR() every second (fourth) call if current LED state is inactive
@@ -979,4 +982,4 @@ void irmp_timer_ISR(void)
     digitalWriteFast(IR_TIMING_TEST_PIN, LOW); // 2 clock cycles
 #endif
 }
-#endif // (! defined(USE_ONE_TIMER_FOR_IRMP_AND_IRSND) || ( defined(_IRMP_ARDUINO_EXT_H) && defined(_IRSND_ARDUINO_EXT_H) )) && ! defined(ISR_DEFINED)
+#endif // (! defined(USE_ONE_TIMER_FOR_IRMP_AND_IRSND) || ! defined(ARDUINO) || ( defined(_IRMP_ARDUINO_EXT_H) && defined(_IRSND_ARDUINO_EXT_H) )) && ! defined(ISR_DEFINED)

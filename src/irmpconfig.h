@@ -146,6 +146,158 @@
 #define IRMP_SUPPORT_RF_X10_PROTOCOL            0       // RF PC X10 (Medion)   >= 15000                 ~250 bytes
 #define IRMP_SUPPORT_RF_MEDION_PROTOCOL         0       // RF PC Medion         >= 15000                 ~250 bytes
 #define IRMP_SUPPORT_MELINERA_PROTOCOL          0       // MELINERA (Lidl)      >= 10000
+
+/*
+ * Optional profile for bare-metal AVR applications that cannot select
+ * protocols through the Arduino build configuration.
+ */
+#if defined(IRMP_ATMEGA8_NEC_ONLY)
+#  undef IRMP_SUPPORT_SIRCS_PROTOCOL
+#  define IRMP_SUPPORT_SIRCS_PROTOCOL            0
+#  undef IRMP_SUPPORT_NEC_PROTOCOL
+#  define IRMP_SUPPORT_NEC_PROTOCOL              1
+#  undef IRMP_SUPPORT_SAMSUNG_PROTOCOL
+#  define IRMP_SUPPORT_SAMSUNG_PROTOCOL          0
+#  undef IRMP_SUPPORT_KASEIKYO_PROTOCOL
+#  define IRMP_SUPPORT_KASEIKYO_PROTOCOL         0
+#elif defined(IRMP_ATMEGA8_NEC_RC5)
+#  undef IRMP_SUPPORT_SIRCS_PROTOCOL
+#  define IRMP_SUPPORT_SIRCS_PROTOCOL            0
+#  undef IRMP_SUPPORT_NEC_PROTOCOL
+#  define IRMP_SUPPORT_NEC_PROTOCOL              1
+#  undef IRMP_SUPPORT_SAMSUNG_PROTOCOL
+#  define IRMP_SUPPORT_SAMSUNG_PROTOCOL          0
+#  undef IRMP_SUPPORT_KASEIKYO_PROTOCOL
+#  define IRMP_SUPPORT_KASEIKYO_PROTOCOL         0
+#  undef IRMP_SUPPORT_RC5_PROTOCOL
+#  define IRMP_SUPPORT_RC5_PROTOCOL              1
+#elif defined(IRMP_ATMEGA8_COMMON_PROTOCOLS)
+#  undef IRMP_SUPPORT_SIRCS_PROTOCOL
+#  define IRMP_SUPPORT_SIRCS_PROTOCOL            1
+#  undef IRMP_SUPPORT_NEC_PROTOCOL
+#  define IRMP_SUPPORT_NEC_PROTOCOL              1
+#  undef IRMP_SUPPORT_SAMSUNG_PROTOCOL
+#  define IRMP_SUPPORT_SAMSUNG_PROTOCOL          1
+#  undef IRMP_SUPPORT_KASEIKYO_PROTOCOL
+#  define IRMP_SUPPORT_KASEIKYO_PROTOCOL         1
+#  undef IRMP_SUPPORT_JVC_PROTOCOL
+#  define IRMP_SUPPORT_JVC_PROTOCOL              1
+#  undef IRMP_SUPPORT_NEC16_PROTOCOL
+#  define IRMP_SUPPORT_NEC16_PROTOCOL            1
+#  undef IRMP_SUPPORT_NEC42_PROTOCOL
+#  define IRMP_SUPPORT_NEC42_PROTOCOL            1
+#  undef IRMP_SUPPORT_MATSUSHITA_PROTOCOL
+#  define IRMP_SUPPORT_MATSUSHITA_PROTOCOL       1
+#  undef IRMP_SUPPORT_DENON_PROTOCOL
+#  define IRMP_SUPPORT_DENON_PROTOCOL            1
+#  undef IRMP_SUPPORT_RC5_PROTOCOL
+#  define IRMP_SUPPORT_RC5_PROTOCOL              1
+#  undef IRMP_SUPPORT_RC6_PROTOCOL
+#  define IRMP_SUPPORT_RC6_PROTOCOL              1
+#elif defined(IRMP_ATMEGA8_ALL_IR_PROTOCOLS)
+#  undef IRMP_SUPPORT_SIRCS_PROTOCOL
+#  define IRMP_SUPPORT_SIRCS_PROTOCOL            1
+#  undef IRMP_SUPPORT_NEC_PROTOCOL
+#  define IRMP_SUPPORT_NEC_PROTOCOL              1
+#  undef IRMP_SUPPORT_SAMSUNG_PROTOCOL
+#  define IRMP_SUPPORT_SAMSUNG_PROTOCOL          1
+#  undef IRMP_SUPPORT_KASEIKYO_PROTOCOL
+#  define IRMP_SUPPORT_KASEIKYO_PROTOCOL         1
+#  undef IRMP_SUPPORT_JVC_PROTOCOL
+#  define IRMP_SUPPORT_JVC_PROTOCOL              1
+#  undef IRMP_SUPPORT_NEC16_PROTOCOL
+#  define IRMP_SUPPORT_NEC16_PROTOCOL            1
+#  undef IRMP_SUPPORT_NEC42_PROTOCOL
+#  define IRMP_SUPPORT_NEC42_PROTOCOL            1
+#  undef IRMP_SUPPORT_MATSUSHITA_PROTOCOL
+#  define IRMP_SUPPORT_MATSUSHITA_PROTOCOL       1
+#  undef IRMP_SUPPORT_DENON_PROTOCOL
+#  define IRMP_SUPPORT_DENON_PROTOCOL            1
+#  undef IRMP_SUPPORT_RC5_PROTOCOL
+#  define IRMP_SUPPORT_RC5_PROTOCOL              1
+#  undef IRMP_SUPPORT_RC6_PROTOCOL
+#  define IRMP_SUPPORT_RC6_PROTOCOL              1
+#  undef IRMP_SUPPORT_IR60_PROTOCOL
+#  define IRMP_SUPPORT_IR60_PROTOCOL             1
+#  undef IRMP_SUPPORT_GRUNDIG_PROTOCOL
+#  define IRMP_SUPPORT_GRUNDIG_PROTOCOL          1
+#  undef IRMP_SUPPORT_SIEMENS_PROTOCOL
+#  define IRMP_SUPPORT_SIEMENS_PROTOCOL          1
+#  undef IRMP_SUPPORT_NOKIA_PROTOCOL
+#  define IRMP_SUPPORT_NOKIA_PROTOCOL            1
+#  undef IRMP_SUPPORT_BOSE_PROTOCOL
+#  define IRMP_SUPPORT_BOSE_PROTOCOL             1
+#  undef IRMP_SUPPORT_KATHREIN_PROTOCOL
+#  define IRMP_SUPPORT_KATHREIN_PROTOCOL         1
+#  undef IRMP_SUPPORT_NUBERT_PROTOCOL
+#  define IRMP_SUPPORT_NUBERT_PROTOCOL           1
+#  undef IRMP_SUPPORT_FAN_PROTOCOL
+#  define IRMP_SUPPORT_FAN_PROTOCOL              0
+#  undef IRMP_SUPPORT_SPEAKER_PROTOCOL
+#  define IRMP_SUPPORT_SPEAKER_PROTOCOL          1
+#  undef IRMP_SUPPORT_BANG_OLUFSEN_PROTOCOL
+#  define IRMP_SUPPORT_BANG_OLUFSEN_PROTOCOL     1
+#  undef IRMP_SUPPORT_RECS80_PROTOCOL
+#  define IRMP_SUPPORT_RECS80_PROTOCOL           1
+#  undef IRMP_SUPPORT_RECS80EXT_PROTOCOL
+#  define IRMP_SUPPORT_RECS80EXT_PROTOCOL        1
+#  undef IRMP_SUPPORT_THOMSON_PROTOCOL
+#  define IRMP_SUPPORT_THOMSON_PROTOCOL          1
+#  undef IRMP_SUPPORT_NIKON_PROTOCOL
+#  define IRMP_SUPPORT_NIKON_PROTOCOL            1
+#  undef IRMP_SUPPORT_NETBOX_PROTOCOL
+#  define IRMP_SUPPORT_NETBOX_PROTOCOL           1
+#  undef IRMP_SUPPORT_ORTEK_PROTOCOL
+#  define IRMP_SUPPORT_ORTEK_PROTOCOL            0
+#  undef IRMP_SUPPORT_TELEFUNKEN_PROTOCOL
+#  define IRMP_SUPPORT_TELEFUNKEN_PROTOCOL       1
+#  undef IRMP_SUPPORT_FDC_PROTOCOL
+#  define IRMP_SUPPORT_FDC_PROTOCOL              1
+#  undef IRMP_SUPPORT_RCCAR_PROTOCOL
+#  define IRMP_SUPPORT_RCCAR_PROTOCOL             1
+#  undef IRMP_SUPPORT_ROOMBA_PROTOCOL
+#  define IRMP_SUPPORT_ROOMBA_PROTOCOL            0
+#  undef IRMP_SUPPORT_RUWIDO_PROTOCOL
+#  define IRMP_SUPPORT_RUWIDO_PROTOCOL            0
+#  undef IRMP_SUPPORT_A1TVBOX_PROTOCOL
+#  define IRMP_SUPPORT_A1TVBOX_PROTOCOL           1
+#  undef IRMP_SUPPORT_LEGO_PROTOCOL
+#  define IRMP_SUPPORT_LEGO_PROTOCOL              0
+#  undef IRMP_SUPPORT_RCMM_PROTOCOL
+#  define IRMP_SUPPORT_RCMM_PROTOCOL              0
+#  undef IRMP_SUPPORT_LGAIR_PROTOCOL
+#  define IRMP_SUPPORT_LGAIR_PROTOCOL             1
+#  undef IRMP_SUPPORT_SAMSUNG48_PROTOCOL
+#  define IRMP_SUPPORT_SAMSUNG48_PROTOCOL         1
+#  undef IRMP_SUPPORT_MERLIN_PROTOCOL
+#  define IRMP_SUPPORT_MERLIN_PROTOCOL            0
+#  undef IRMP_SUPPORT_PENTAX_PROTOCOL
+#  define IRMP_SUPPORT_PENTAX_PROTOCOL            1
+#  undef IRMP_SUPPORT_S100_PROTOCOL
+#  define IRMP_SUPPORT_S100_PROTOCOL               0
+#  undef IRMP_SUPPORT_ACP24_PROTOCOL
+#  define IRMP_SUPPORT_ACP24_PROTOCOL              0
+#  undef IRMP_SUPPORT_TECHNICS_PROTOCOL
+#  define IRMP_SUPPORT_TECHNICS_PROTOCOL           1
+#  undef IRMP_SUPPORT_PANASONIC_PROTOCOL
+#  define IRMP_SUPPORT_PANASONIC_PROTOCOL          0
+#  undef IRMP_SUPPORT_MITSU_HEAVY_PROTOCOL
+#  define IRMP_SUPPORT_MITSU_HEAVY_PROTOCOL        0
+#  undef IRMP_SUPPORT_VINCENT_PROTOCOL
+#  define IRMP_SUPPORT_VINCENT_PROTOCOL            1
+#  undef IRMP_SUPPORT_SAMSUNGAH_PROTOCOL
+#  define IRMP_SUPPORT_SAMSUNGAH_PROTOCOL          1
+#  undef IRMP_SUPPORT_IRMP16_PROTOCOL
+#  define IRMP_SUPPORT_IRMP16_PROTOCOL             0
+#  undef IRMP_SUPPORT_GREE_PROTOCOL
+#  define IRMP_SUPPORT_GREE_PROTOCOL               1
+#  undef IRMP_SUPPORT_RCII_PROTOCOL
+#  define IRMP_SUPPORT_RCII_PROTOCOL               0
+#  undef IRMP_SUPPORT_METZ_PROTOCOL
+#  define IRMP_SUPPORT_METZ_PROTOCOL               1
+#  undef IRMP_SUPPORT_MELINERA_PROTOCOL
+#  define IRMP_SUPPORT_MELINERA_PROTOCOL            1
+#endif
 #endif // ! defined(ARDUINO)
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,8 +305,12 @@
  *---------------------------------------------------------------------------------------------------------------------------------------------------
  */
 #if defined (ATMEL_AVR) || defined (__AVR_XMEGA__)                      // use PB6 as IR input on AVR
-#  define IRMP_PORT_LETTER                      B
-#  define IRMP_BIT_NUMBER                       6
+#  if !defined(IRMP_PORT_LETTER)
+#    define IRMP_PORT_LETTER                    B
+#  endif
+#  if !defined(IRMP_BIT_NUMBER)
+#    define IRMP_BIT_NUMBER                     6
+#  endif
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
  * Change hardware pin here for PIC C18 or XC8 compiler

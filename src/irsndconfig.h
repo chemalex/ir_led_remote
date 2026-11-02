@@ -88,6 +88,18 @@
 #define IRSND_SUPPORT_PANASONIC_PROTOCOL        0       // PANASONIC Beamer     >= 10000                 ~150 bytes
 #define IRSND_SUPPORT_MITSU_HEAVY_PROTOCOL      0       // Mitsubishi-Heavy Aircondition, similar Timing to Panasonic beamer
 #define IRSND_SUPPORT_IRMP16_PROTOCOL           0       // IRMP specific        >= 15000                 ~250 bytes
+
+/* Small transmitter profile used by the bare-metal ATmega8 repeater. */
+#if defined(IRSND_ATMEGA8_NEC_ONLY)
+#  undef IRSND_SUPPORT_SIRCS_PROTOCOL
+#  define IRSND_SUPPORT_SIRCS_PROTOCOL           0
+#  undef IRSND_SUPPORT_SAMSUNG_PROTOCOL
+#  define IRSND_SUPPORT_SAMSUNG_PROTOCOL         0
+#  undef IRSND_SUPPORT_MATSUSHITA_PROTOCOL
+#  define IRSND_SUPPORT_MATSUSHITA_PROTOCOL      0
+#  undef IRSND_SUPPORT_KASEIKYO_PROTOCOL
+#  define IRSND_SUPPORT_KASEIKYO_PROTOCOL        0
+#endif
 #endif // ! defined(ARDUINO)
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -118,7 +130,11 @@
  *---------------------------------------------------------------------------------------------------------------------------------------------------
  */
 #elif defined(ATMEL_AVR)
-#  define IRSND_OCx                             IRSND_OC2B              // use OC2B
+#  if defined(__AVR_ATmega8__)
+#    define IRSND_OCx                           IRSND_OC2               // ATmega8 uses OC2 on PB3
+#  else
+#    define IRSND_OCx                           IRSND_OC2B              // use OC2B
+#  endif
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
  * PIC C18 or XC8 section:
