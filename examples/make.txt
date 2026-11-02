@@ -1,0 +1,108 @@
+cd /home/alex/ir_send_rcv/IRMP
+
+sudo apt update
+sudo apt install gcc-avr avr-libc binutils-avr avrdude
+
+avr-g++ -std=gnu++11 \
+  -mmcu=atmega8 \
+  -DF_CPU=12000000UL \
+  -Os -ffunction-sections -fdata-sections \
+  -fno-exceptions -fno-rtti \
+  -Isrc \
+  examples/ATmega8UARTReceiver/ATmega8UARTReceiver.cpp \
+  -Wl,--gc-sections \
+  -o examples/ATmega8UARTReceiver/receiver.elf
+
+
+  avr-size -C --mcu=atmega8 examples/ATmega8UARTReceiver/receiver.elf
+
+  avr-objcopy -O ihex -R .eeprom \
+  examples/ATmega8UARTReceiver/receiver.elf \
+  examples/ATmega8UARTReceiver/receiver.hex
+
+  avrdude -c usbasp -p m8 \
+  -U flash:w:examples/ATmega8UARTReceiver/receiver.hex:i
+
+
+
+  ----- für das testprogramm --
+  avr-g++ -std=gnu++11 -mmcu=atmega8 -DF_CPU=12000000UL -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti examples/test_TSOP/test_TSOP.cpp -Wl,--gc-sections -o examples/test_TSOP/test_TSOP.elf
+
+
+  cd /home/alex/ir_send_rcv/IRMP
+
+# Kompilieren und linken
+avr-g++ -std=gnu++11 -mmcu=atmega8 -DF_CPU=12000000UL \
+  -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti \
+  examples/test_TSOP/test_TSOP.cpp \
+  -Wl,--gc-sections \
+  -o examples/test_TSOP/test_TSOP.elf
+
+# Optional: Flash- und RAM-Verbrauch anzeigen
+avr-size -C --mcu=atmega8 examples/test_TSOP/test_TSOP.elf
+
+# In eine HEX-Datei umwandeln
+avr-objcopy -O ihex -R .eeprom \
+  examples/test_TSOP/test_TSOP.elf \
+  examples/test_TSOP/test_TSOP.hex
+
+# Mit USBasp auf den ATmega8 flashen
+avrdude -c usbasp -p m8 \
+  -U flash:w:examples/test_TSOP/test_TSOP.hex:i
+
+
+
+  ----- neuer Test ---------------------- 
+  Bare metal moduls changed  -> ARDUINO direkt auf ATMEGA 8 umgehoben
+
+
+avr-g++ -std=gnu++11 -mmcu=atmega8 -DF_CPU=12000000UL \
+  -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti \
+  -Isrc examples/ATmega8UARTReceiver/ATmega8UARTReceiver.cpp \
+  -Wl,--gc-sections \
+  -o examples/ATmega8UARTReceiver/receiver.elf
+
+  avr-objcopy -O ihex -R .eeprom \
+  examples/ATmega8UARTReceiver/receiver.elf \
+  examples/ATmega8UARTReceiver/receiver.hex
+
+  udo avrdude -c usbasp -p m8 \
+  -U flash:w:examples/ATmega8UARTReceiver/receiver.hex:i
+
+
+
+
+  ----------------------- nun der repeater ----------------------------
+
+cd /home/alex/ir_send_rcv/IRMP
+
+avr-g++ -std=gnu++11 -mmcu=atmega8 -DF_CPU=12000000UL \
+  -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti \
+  -Isrc examples/TSOP_REPEATER/TSOP_REPEATER.cpp \
+  -Wl,--gc-sections \
+  -o examples/TSOP_REPEATER/TSOP_REPEATER.elf
+
+avr-size -C --mcu=atmega8 examples/TSOP_REPEATER/TSOP_REPEATER.elf
+
+avr-objcopy -O ihex -R .eeprom \
+  examples/TSOP_REPEATER/TSOP_REPEATER.elf \
+  examples/TSOP_REPEATER/TSOP_REPEATER.hex
+
+sudo avrdude -c usbasp -p m8 \
+  -U flash:w:examples/TSOP_REPEATER/TSOP_REPEATER.hex:i
+
+
+  -------------- mit mapping von anderer Fernbedienung
+
+avr-g++ -std=gnu++11 -mmcu=atmega8 -DF_CPU=12000000UL \
+  -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti \
+  -Isrc examples/TSOP_REP_MAPPING/TSOP_REP_MAPPING.cpp \
+  -Wl,--gc-sections \
+  -o examples/TSOP_REP_MAPPING/TSOP_REP_MAPPING.elf
+
+avr-objcopy -O ihex -R .eeprom \
+  examples/TSOP_REP_MAPPING/TSOP_REP_MAPPING.elf \
+  examples/TSOP_REP_MAPPING/TSOP_REP_MAPPING.hex
+
+sudo avrdude -c usbasp -p m8 \
+  -U flash:w:examples/TSOP_REP_MAPPING/TSOP_REP_MAPPING.hex:i
